@@ -1,0 +1,84 @@
+openapi: 3.0.0
+info:
+  title: Resume API
+  description: API for managing resumes
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /upload-cv:
+    post:
+      summary: Upload a CV
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful upload
+        '400':
+          description: Invalid request
+        '500':
+          description: Server error
+  /upload-cvs:
+    post:
+      summary: Upload multiple CVs
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: Successful upload
+        '400':
+          description: Invalid request
+        '500':
+          description: Server error
+  /search-resumes:
+    get:
+      summary: Search resumes
+      parameters:
+        - name: text
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: years_of_experience
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: education
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: job_title
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful search
+        '400':
+          description: Invalid request
+        '500':
+          description: Server error
